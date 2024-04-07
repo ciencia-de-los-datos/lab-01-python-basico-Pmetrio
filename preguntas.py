@@ -13,10 +13,13 @@ Utilice el archivo `data.csv` para resolver las preguntas.
 """
 
 
-def pregunta_01():
+def suma_segunda_columna(data.csv):
+    total = 0
+    with open (data.csv , 'r') as 
+
     """
     Retorne la suma de la segunda columna.
-
+        def
     Rta/
     214
 
