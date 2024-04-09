@@ -1,5 +1,5 @@
 """
-Laboratorio de Programación Básica en Python para Manejo de Datos
+ Laboratorio de Programación Básica en Python para Manejo de Datos
 -----------------------------------------------------------------------------------------
 
 Este archivo contiene las preguntas que se van a realizar en el laboratorio.
