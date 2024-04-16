@@ -1,3 +1,4 @@
+#<<<<<<< HEAD
 """
 Laboratorio de Programación Básica en Python para Manejo de Datos
 -----------------------------------------------------------------------------------------
@@ -97,20 +98,7 @@ def pregunta_02():
 #     """
 #     return
 def pregunta_03():
-    """
-    Retorne la suma de la columna 2 por cada letra de la primera columna como una lista
-    de tuplas (letra, suma) ordendas alfabeticamente.
-
-    Rta/
-    [
-        ("A", 53),
-        ("B", 36),
-        ("C", 27),
-        ("D", 31),
-        ("E", 67),
-    ]
-
-    """
+    
     list_text = lectura_de_documento()
     
     lista = []
@@ -190,20 +178,7 @@ print(pregunta_04())
 #     """
 #     return
 def pregunta_05():
-    """
-    Retorne una lista de tuplas con el valor maximo y minimo de la columna 2 por cada
-    letra de la columa 1.
-
-    Rta/
-    [
-        ("A", 9, 2),
-        ("B", 9, 1),
-        ("C", 9, 0),
-        ("D", 8, 3),
-        ("E", 9, 1),
-    ]
-
-    """    
+     
     list_text =lectura_de_documento()
        
     lista = []
