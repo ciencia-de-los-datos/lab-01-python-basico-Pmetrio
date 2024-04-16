@@ -43,37 +43,41 @@ print (pregunta_01())
 
 
 
-# def pregunta_02():
-#     """
-#     Retorne la cantidad de registros por cada letra de la primera columna como la lista
-#     de tuplas (letra, cantidad), ordenadas alfabéticamente.
-
-#     Rta/
-#     [
-#         ("A", 8),
-#         ("B", 7),
-#         ("C", 5),
-#         ("D", 6),
-#         ("E", 14),
-#     ]
-
-#     """
-#     return
 def pregunta_02():
-    lectura_texto = lectura_de_documento()
-    conteo_letras = {}
+    """
+    Retorne la cantidad de registros por cada letra de la primera columna como la lista
+    de tuplas (letra, cantidad), ordenadas alfabéticamente.
 
-    for lista_interna in lectura_texto:
-        primera_letra = lista_interna[0][0].lower()
-        conteo_letras[primera_letra] = conteo_letras.get(primera_letra, 0) + 1
+    Rta/
+    [
+        ("A", 8),
+        ("B", 7),
+        ("C", 5),
+        ("D", 6),
+        ("E", 14),
+    ]
 
-    lista_tuplas_ordenadas = sorted(conteo_letras.items())
+    """
+    list_text = lectura_de_documento()
     
-    return lista_tuplas_ordenadas
+    lista = []
+    diccionario = {}
 
-# Imprimir el resultado de pregunta_02()
-print(pregunta_02())
+    for i in list_text:
+        lista.append((i[0], 1))
+        lista = sorted(lista, key=lambda x: x[0])
+    
+    for key, value in lista:
+        if key not in diccionario.keys():
+            diccionario[key] = []
+        diccionario[key].append(value)
 
+    respuesta = []
+
+    for key, value in diccionario.items():
+        respuesta.append((key, sum(value)))
+    
+    return respuesta
 
 
 # def pregunta_03():
@@ -93,20 +97,40 @@ print(pregunta_02())
 #     """
 #     return
 def pregunta_03():
-    lectura_texto = lectura_de_documento()
-    suma_por_letra = {}
+    """
+    Retorne la suma de la columna 2 por cada letra de la primera columna como una lista
+    de tuplas (letra, suma) ordendas alfabeticamente.
 
-    for lista_interna in lectura_texto:
-        letra = lista_interna[0][0].lower()
-        valor_columna2 = int(lista_interna[1])  # Suponiendo que los valores son enteros en la columna 2
-        suma_por_letra[letra] = suma_por_letra.get(letra, 0) + valor_columna2
+    Rta/
+    [
+        ("A", 53),
+        ("B", 36),
+        ("C", 27),
+        ("D", 31),
+        ("E", 67),
+    ]
 
-    lista_tuplas_ordenadas = sorted(suma_por_letra.items())
+    """
+    list_text = lectura_de_documento()
     
-    return lista_tuplas_ordenadas
+    lista = []
+    diccionario = {}
 
-# Imprimir el resultado de pregunta_03()
-print(pregunta_03())
+    for i in list_text:
+        lista.append((i[0], int(i[1])))
+        lista = sorted(lista, key=lambda x: x[0])
+    
+    for key, value in lista:
+        if key not in diccionario.keys():
+            diccionario[key] = []
+        diccionario[key].append(value)
+
+    respuesta = []
+
+    for key, value in diccionario.items():
+        respuesta.append((key, sum(value))) 
+
+    return respuesta
     
 
 # def pregunta_04():
@@ -166,24 +190,40 @@ print(pregunta_04())
 #     """
 #     return
 def pregunta_05():
-    lectura_texto = lectura_de_documento()
-    max_min_por_letra = {}
+    """
+    Retorne una lista de tuplas con el valor maximo y minimo de la columna 2 por cada
+    letra de la columa 1.
 
-    for lista_interna in lectura_texto:
-        letra = lista_interna[0][0].lower()
-        valor_columna2 = int(lista_interna[1])  # Suponiendo que los valores son enteros en la columna 2
-        if letra not in max_min_por_letra:
-            max_min_por_letra[letra] = (valor_columna2, valor_columna2)
-        else:
-            max_min_por_letra[letra] = (max(max_min_por_letra[letra][0], valor_columna2),
-                                         min(max_min_por_letra[letra][1], valor_columna2))
+    Rta/
+    [
+        ("A", 9, 2),
+        ("B", 9, 1),
+        ("C", 9, 0),
+        ("D", 8, 3),
+        ("E", 9, 1),
+    ]
 
-    lista_tuplas = sorted([(letra, max_valor, min_valor) for letra, (max_valor, min_valor) in max_min_por_letra.items()])
+    """    
+    list_text =lectura_de_documento()
+       
+    lista = []
+    diccionario = {}
 
-    return lista_tuplas
+    for i in list_text:        
+        lista.append((i[0], int(i[1])))
+        lista = sorted(lista, key=lambda x: x[0])
+        
+    for key, value in lista:
+        if key not in diccionario.keys():
+            diccionario[key] = []
+        diccionario[key].append(value)
 
-# Imprimir el resultado de pregunta_05()
-print(pregunta_05())
+    respuesta = []
+
+    for key, value in diccionario.items():
+        respuesta.append((key, max(value), min(value)))
+    
+    return respuesta
 
 # def pregunta_06():
 #     """
@@ -264,118 +304,125 @@ print(pregunta_06())
 #     """
 #     return
 def pregunta_07():
-    lectura_texto = lectura_de_documento()
-    asociaciones = {}
-
-    for fila in lectura_texto:
-        valor_columna1 = fila[0]
-        valor_columna2 = fila[1]
-        
-        if valor_columna2 not in asociaciones:
-            asociaciones[valor_columna2] = [valor_columna1]
-        else:
-            asociaciones[valor_columna2].append(valor_columna1)
-
-    lista_tuplas_asociadas = [(valor, valores) for valor, valores in asociaciones.items()]
+   
+    list_text = lectura_de_documento()
     
-    # Ordenar la lista de tuplas por el valor numérico de la columna 2
-    lista_tuplas_asociadas = sorted(lista_tuplas_asociadas, key=lambda x: int(x[0]) if x[0].isdigit() else float('inf'))
+    lista = []
+    diccionario = {}
 
-    return lista_tuplas_asociadas
+    for i in list_text:
+        lista.append((int(i[1]), i[0]))
+        lista = sorted(lista, key=lambda x: x[0])
+        
+    for key, value in lista:
+        if key not in diccionario.keys():
+            diccionario[key] = []
+        diccionario[key].append(value)
 
-# Imprimir el resultado de pregunta_07()
-print(pregunta_07())
+    respuesta = []
 
-# def pregunta_08():
-#     """
-#     Genere una lista de tuplas, donde el primer elemento de cada tupla contiene  el valor
-#     de la segunda columna; la segunda parte de la tupla es una lista con las letras
-#     (ordenadas y sin repetir letra) de la primera  columna que aparecen asociadas a dicho
-#     valor de la segunda columna.
+    for key, value in diccionario.items():
+        respuesta.append((key, value))
+        
+    return respuesta
 
-#     Rta/
-#     [
-#         (0, ["C"]),
-#         (1, ["B", "E"]),
-#         (2, ["A", "E"]),
-#         (3, ["A", "B", "D", "E"]),
-#         (4, ["B", "E"]),
-#         (5, ["B", "C", "D", "E"]),
-#         (6, ["A", "B", "C", "E"]),
-#         (7, ["A", "C", "D", "E"]),
-#         (8, ["A", "B", "D", "E"]),
-#         (9, ["A", "B", "C", "E"]),
-#     ]
-
-#     """
-#     return
 def pregunta_08():
-    lectura_texto = lectura_de_documento()
-    asociaciones = {}
+    """
+    Genere una lista de tuplas, donde el primer elemento de cada tupla contiene  el valor
+    de la segunda columna; la segunda parte de la tupla es una lista con las letras
+    (ordenadas y sin repetir letra) de la primera  columna que aparecen asociadas a dicho
+    valor de la segunda columna.
 
-    for fila in lectura_texto:
-        valor_columna1 = fila[0]
-        valor_columna2 = fila[1]
+    Rta/
+    [
+        (0, ["C"]),
+        (1, ["B", "E"]),
+        (2, ["A", "E"]),
+        (3, ["A", "B", "D", "E"]),
+        (4, ["B", "E"]),
+        (5, ["B", "C", "D", "E"]),
+        (6, ["A", "B", "C", "E"]),
+        (7, ["A", "C", "D", "E"]),
+        (8, ["A", "B", "D", "E"]),
+        (9, ["A", "B", "C", "E"]),
+    ]
 
-        if valor_columna2 not in asociaciones:
-            asociaciones[valor_columna2] = [valor_columna1]
-        else:
-            asociaciones[valor_columna2].append(valor_columna1)
+    """
+    list_text = lectura_de_documento()
+    
+    lista = []
+    diccionario  ={}
 
-    lista_tuplas = []
-    for valor, letras in sorted(asociaciones.items(), key=lambda x: int(x[0]) if x[0].isdigit() else float('inf')):
-        letras_ordenadas_sin_repeticiones = sorted(set(letras))
-        lista_tuplas.append((valor, letras_ordenadas_sin_repeticiones))
+    for i in list_text:
+        lista.append((int(i[1]), i[0]))
+        lista = sorted(lista, key=lambda x: x[1])
+        lista = sorted(lista, key=lambda x: x[0])
+        
+    for key, value in lista:
+        
+        if key not in diccionario.keys():
+            diccionario[key] = []    
+        
+        diccionario[key].append(value)
+        
+    respuesta = []
 
-    return lista_tuplas
+    for key, value in diccionario.items():
+        value = list(set(value))
+        values = "".join(value)
+        values = sorted(values)
+        respuesta.append((key, values))
+    
+    return respuesta
 
-# Imprimir el resultado de pregunta_08()
-print(pregunta_08())
+def pregunta_09():
+    """
+    Retorne un diccionario que contenga la cantidad de registros en que aparece cada
+    clave de la columna 5.
 
-# def pregunta_09():
-#     """
-#     Retorne un diccionario que contenga la cantidad de registros en que aparece cada
-#     clave de la columna 5.
+    Rta/
+    {
+        "aaa": 13,
+        "bbb": 16,
+        "ccc": 23,
+        "ddd": 23,
+        "eee": 15,
+        "fff": 20,
+        "ggg": 13,
+        "hhh": 16,
+        "iii": 18,
+        "jjj": 18,
+    }
 
-#     Rta/
-#     {
-#         "aaa": 13,
-#         "bbb": 16,
-#         "ccc": 23,
-#         "ddd": 23,
-#         "eee": 15,
-#         "fff": 20,
-#         "ggg": 13,
-#         "hhh": 16,
-#         "iii": 18,
-#         "jjj": 18,
-#     }
+    """
+    list_text = lectura_de_documento()
+    
+    lista = [i[4].split(",") for i in list_text[0:]]
 
-#     """
-#     return
-def contar_registros_columna_5():
-    lectura_texto = lectura_de_documento()
-    conteo = {}
+    diccionario = {}
+    list_P3 = []
 
-    for fila in lectura_texto:
-        clave_columna5 = fila[4]
+    for i in lista:
+        for j in i:
+            list_P2 = tuple(j.split(":"))
+            list_P3.append(list_P2)
 
-        if clave_columna5 not in conteo:
-            conteo[clave_columna5] = 1
-        else:
-            conteo[clave_columna5] += 1
+    list_P3 = sorted(list_P3, key=lambda x: x[0])
+    
+    for key, value in list_P3:
+        if key not in diccionario.keys():
+            diccionario[key] = []
+        diccionario[key].append((len(value)))
+        
+    list_Prob = []
+    
+    for key, value in diccionario.items():
+        list_P = len(value)
+        list_Prob.append((key, list_P))
+                
+    respuesta = {key:value for key, value in list_Prob}
 
-    # Asegurarse de que todas las claves estén presentes en el diccionario
-    claves_presentes = conteo.keys()
-    claves_a_agregar = set(["aaa", "bbb", "ccc", "ddd", "eee", "fff", "ggg", "hhh", "iii", "jjj"]) - set(claves_presentes)
-    for clave in claves_a_agregar:
-        conteo[clave] = 0
-
-    return conteo
-
-# Imprimir el resultado de contar_registros_columna_5()
-print(contar_registros_columna_5())
-
+    return respuesta
 
 
 # def pregunta_10():
@@ -412,81 +459,114 @@ def pregunta_10():
 # Imprimir el resultado de pregunta_10()
 print(pregunta_10())
 
-# def pregunta_11():
-#     """
-#     Retorne un diccionario que contengan la suma de la columna 2 para cada letra de la
-#     columna 4, ordenadas alfabeticamente.
+def pregunta_11():
+    """
+    Retorne un diccionario que contengan la suma de la columna 2 para cada letra de la
+    columna 4, ordenadas alfabeticamente.
 
-#     Rta/
-#     {
-#         "a": 122,
-#         "b": 49,
-#         "c": 91,
-#         "d": 73,
-#         "e": 86,
-#         "f": 134,
-#         "g": 35,
-#     }
+    Rta/
+    {
+        "a": 122,
+        "b": 49,
+        "c": 91,
+        "d": 73,
+        "e": 86,
+        "f": 134,
+        "g": 35,
+    }
 
 
-#     """
-#     return
-
-def sumar_columna_2_por_letra_columna_4():
-    lectura_texto = lectura_de_documento()
-    suma_por_letra = {}
-
-    for fila in lectura_texto:
-        letra_columna4 = fila[3]
-        suma_columna2 = int(fila[1])
-
-        if letra_columna4 not in suma_por_letra:
-            suma_por_letra[letra_columna4] = suma_columna2
-        else:
-            suma_por_letra[letra_columna4] += suma_columna2
-
-    suma_por_letra_ordenada = dict(sorted(suma_por_letra.items()))
-
-    return suma_por_letra_ordenada
-
-# Imprimir el resultado de sumar_columna_2_por_letra_columna_4()
-print(sumar_columna_2_por_letra_columna_4())
-
-# def pregunta_12():
-#     """
-#     Genere un diccionario que contengan como clave la columna 1 y como valor la suma de
-#     los valores de la columna 5 sobre todo el archivo.
-
-#     Rta/
-#     {
-#         'A': 177,
-#         'B': 187,
-#         'C': 114,
-#         'D': 136,
-#         'E': 324
-#     }
-
-#     """
-#     return
-def suma_columna_5_por_letra_columna_1():
-    lectura_texto = lectura_de_documento()
-    suma_por_letra = {}
-
-    for fila in lectura_texto:
-        letra_columna1 = fila[0]
-        valores_columna5 = fila[4].split(',')
+    """
+    list_text = lectura_de_documento()
         
-        suma = 0
-        for valor in valores_columna5:
-            valor_numerico = int(valor.split(':')[1])
-            suma += valor_numerico
+    lista = []
+    diccionario ={}
 
-        if letra_columna1 not in suma_por_letra:
-            suma_por_letra[letra_columna1] = suma
-        else:
-            suma_por_letra[letra_columna1] += suma
+    for i in list_text:        
+        lista.append((i[3].split(","), int(i[1])))
+        
+    list_tupla = []
 
-    return suma_por_letra
+    for key, value in lista:        
+        for i in key:
+            list_tupla.append((i, value))            
 
-# Imprimir el resultado de suma_columna_5_por_letra_columna_1()
-print(suma_columna_5_por_letra_columna_1())
+    list_tupla = sorted(list_tupla, key=lambda x: x[0])
+
+    for key, value in list_tupla:
+        if key not in diccionario.keys():
+            diccionario[key] = []
+        diccionario[key].append(value)
+    
+    list_prob = []
+    respuesta = {}
+
+    for key, value in diccionario.items():
+            list_prob.append((key, sum(value)))    
+
+    respuesta = {key:value for key, value in list_prob}
+
+    return respuesta
+
+def pregunta_12():
+    """
+    Genere un diccionario que contengan como clave la columna 1 y como valor la suma de
+    los valores de la columna 5 sobre todo el archivo.
+
+    Rta/
+    {
+        'A': 177,
+        'B': 187,
+        'C': 114,
+        'D': 136,
+        'E': 324
+    }
+
+    """
+    list_text = lectura_de_documento()
+    
+    lista = []
+    diccionario ={}
+
+    for i in list_text:
+        
+        lista.append((i[0], i[4].split(",") ))         
+
+    list_tupla = []
+    list_tupla_2 = []
+    
+    for key, value in lista:        
+        for i in value:
+            list_tupla.append((key, i.split(":")))
+            
+    for key, value in list_tupla:
+        list_tupla_2.append((key, int(value[1])))
+
+    list_tupla_2 = sorted(list_tupla_2, key=lambda x: x[0])
+
+    for key, value in list_tupla_2:
+        if key not in diccionario.keys():
+            diccionario[key] = []
+        diccionario[key].append(value)
+        
+    list_Prob = []
+
+    for key, value in diccionario.items():
+            list_Prob.append((key, sum(value)))
+
+    respuesta = {key:value for key, value in list_Prob}    
+
+    return respuesta
+
+def lectura_documento():
+    
+    # ================== Lectura del documento csv =============================
+    directory = "data.csv"
+    with open(directory, "r") as file:
+        list_text = file.readlines()        
+    
+    # =================== Eliminación de líneas de carro y tabuladores ========= 
+    list_text = [i.replace("\n", "") for i in list_text]
+    list_text = [i.split("\t") for i in list_text]
+    
+    return list_text
